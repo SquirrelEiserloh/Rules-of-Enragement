@@ -174,7 +174,7 @@ public:
 	bool DoesStateRunPhysics( ActorState state );
 	void RunPhysics( double deltaSeconds, Scenario& scenario );
 	void RunEmotions( double deltaSeconds );
-	void RunRelationship( RelationshipToOtherActor& relationship, Actor& otherActor );
+	void RunRelationship( RelationshipToOtherActor& relationship, Actor& otherActor, double deltaSeconds );
 	void StartFalling();
 };
 
