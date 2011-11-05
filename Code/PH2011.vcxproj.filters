@@ -61,6 +61,9 @@
     <ClCompile Include="Scenario_SelfSacrifice.cpp">
       <Filter>Game\Scenarios</Filter>
     </ClCompile>
+    <ClCompile Include="Scenario_Popularity.cpp">
+      <Filter>Game\Scenarios</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB2.hpp">
@@ -127,6 +130,9 @@
       <Filter>Game\Scenarios</Filter>
     </ClInclude>
     <ClInclude Include="Scenario_SelfSacrifice.hpp">
+      <Filter>Game\Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenario_Popularity.hpp">
       <Filter>Game\Scenarios</Filter>
     </ClInclude>
   </ItemGroup>

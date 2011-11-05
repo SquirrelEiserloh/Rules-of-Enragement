@@ -223,7 +223,7 @@ void Actor::RunEmotions( double deltaSeconds )
 		RelationshipToOtherActor& relationship = m_relationships[ relationshipIndex ];
 		if( relationship.m_otherActor )
 		{
-			RunRelationship( relationship, *relationship.m_otherActor );
+			RunRelationship( relationship, *relationship.m_otherActor, deltaSeconds );
 		}
 	}
 
@@ -240,7 +240,7 @@ void Actor::RunEmotions( double deltaSeconds )
 
 
 //-----------------------------------------------------------------------------------------------
-void Actor::RunRelationship( RelationshipToOtherActor& relationship, Actor& otherActor )
+void Actor::RunRelationship( RelationshipToOtherActor& relationship, Actor& otherActor, double deltaSeconds )
 {
 	// Compute raw distance and abstract closeness parameter (1 at/less than inner distance, 0 at/greater than outer distance)
 	Vector2 displacementToOther = otherActor.m_position - m_position;
@@ -265,6 +265,9 @@ void Actor::RunRelationship( RelationshipToOtherActor& relationship, Actor& othe
 	mimicDisplacement.x *= mimic2d.x;
 	mimicDisplacement.y *= mimic2d.y;
 	m_position += mimicDisplacement;
+
+	Vector2 distance = (otherActor.m_position - m_position);
+	m_position += Vector2(distance.x*attraction2d.x, distance.y*attraction2d.y)*deltaSeconds;
 }
 
 

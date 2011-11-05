@@ -7,6 +7,7 @@
 #include "Scenario_Generic.hpp"
 #include "Scenario_SelfDoubt.hpp"
 #include "Scenario_SelfSacrifice.hpp"
+#include "Scenario_Popularity.hpp"
 
 
 //-----------------------------------------------------------------------------------------------
@@ -44,7 +45,7 @@ void TheGame::Startup( const std::string& appCommandLine )
 	}
 
 	CreateScenarios();
-	StartScenarioByName( "SelfSacrifice" );
+	StartScenarioByName( "Popularity" );
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -55,6 +56,7 @@ void TheGame::CreateScenarios()
 	CreateScenario( "Cherry", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
 	CreateScenario( "SelfDoubt", ScenarioStartFunction_SelfDoubt, ScenarioUpdateFunction_SelfDoubt );
 	CreateScenario( "SelfSacrifice", ScenarioStartFunction_SelfSacrifice, ScenarioUpdateFunction_SelfSacrifice );
+	CreateScenario( "Popularity", ScenarioStartFunction_Popularity, ScenarioUpdateFunction_Popularity );
 }
 
 //-----------------------------------------------------------------------------------------------
