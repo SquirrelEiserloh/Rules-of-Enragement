@@ -36,6 +36,15 @@ void ScenarioStartFunction_Generic( Scenario& scenario )
 	Area* testArea2 = new Area;
 	testArea2->m_bounds.SetFromMinXYMaxXY( 400.f, 250.f, 600.f, 350.f );
 	scenario.m_areas.push_back( testArea2 );
+
+	Area* testImpedement = new Area;
+	testImpedement->m_bounds.SetFromMinXYMaxXY( 210.f, 170.f, 220.f, 380.f );
+	testImpedement->m_color = Rgba::DARKGREY;
+	testImpedement->m_alpha = 1.f;
+	testImpedement->m_impassableToNPC = true;
+	testImpedement->m_impassableToPlayer = true;
+	testImpedement->m_deepShadow = false;
+	scenario.m_areas.push_back( testImpedement );
 }
 
 

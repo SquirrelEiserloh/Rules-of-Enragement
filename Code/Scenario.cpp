@@ -37,7 +37,7 @@ void Scenario::Update( double deltaSeconds )
 		Actor& actor = *m_actors[ actorIndex ];
 		if( actor.m_isPlayer )
 		{
-			actor.UpdateAsPlayer( deltaSeconds );
+			actor.UpdateAsPlayer( deltaSeconds, *this );
 		}
 	}
 
@@ -47,10 +47,24 @@ void Scenario::Update( double deltaSeconds )
 		Actor& actor = *m_actors[ actorIndex ];
 		if( !actor.m_isPlayer )
 		{
-			actor.Update( deltaSeconds );
+			actor.Update( deltaSeconds, *this );
 		}
 	}
+}
 
+
+//-----------------------------------------------------------------------------------------------
+void Scenario::ForceActorOutsideOfArea( Actor& actor, Area& area )
+{
+	Vector2 closestPointInAreaToActorCenter = FindClosestPointInBoundsToTarget( area.m_bounds, actor.m_position, false );
+	Vector2 displacementToClosestPoint = closestPointInAreaToActorCenter - actor.m_position;
+	float distanceToClosestPoint = displacementToClosestPoint.CalcLength();
+	if( distanceToClosestPoint < actor.CalcRadius() )
+	{
+		Vector2 desiredDisplacementFromClosestPoint = -displacementToClosestPoint;
+		desiredDisplacementFromClosestPoint.SetLength( actor.CalcRadius() );
+		actor.m_position = closestPointInAreaToActorCenter + desiredDisplacementFromClosestPoint;
+	}
 }
 
 

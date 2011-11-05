@@ -52,6 +52,9 @@ World / areas
 */
 
 
+Vector2 FindClosestPointInBoundsToTarget( const AABB2& bounds, const Vector2& target, bool allowResultsWithinBounds );
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 enum ActorResponse
 {
@@ -87,6 +90,7 @@ public:
 
 	bool m_impassableToPlayer;
 	bool m_impassableToNPC;
+	bool m_deepShadow;
 
 	AreaResponse m_onPlayerTouch;
 	AreaResponse m_onPlayerEnter;
@@ -162,10 +166,10 @@ public:
 	double GetSecondsInCurrentState() const;
 	float GetFractionOfSecondsInCurrentState( double benchmarkSeconds ) const;
 	ActorState ChangeState( ActorState newState );
-	void Update( double deltaSeconds );
-	void UpdateAsPlayer( double deltaSeconds );
+	void Update( double deltaSeconds, Scenario& scenario );
+	void UpdateAsPlayer( double deltaSeconds, Scenario& scenario );
 	bool DoesStateRunPhysics( ActorState state );
-	void RunPhysics( double deltaSeconds );
+	void RunPhysics( double deltaSeconds, Scenario& scenario );
 	void RunEmotions( double deltaSeconds );
 	void RunRelationship( RelationshipToOtherActor& relationship, Actor& otherActor );
 };
@@ -197,6 +201,7 @@ public:
 	Scenario();
 	void Start();
 	void Update( double deltaSeconds );
+	void ForceActorOutsideOfArea( Actor& actor, Area& area );
 	void Render();
 	void RenderArea( Area& area, bool isShadowPass );
 	void RenderActor( Actor& actor, bool isShadowPass );

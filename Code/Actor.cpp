@@ -92,7 +92,7 @@ ActorState Actor::ChangeState( ActorState newState )
 }
 
 //-----------------------------------------------------------------------------------------------
-void Actor::Update( double deltaSeconds )
+void Actor::Update( double deltaSeconds, Scenario& scenario )
 {
 	if( m_isPlayer )
 	{
@@ -105,13 +105,13 @@ void Actor::Update( double deltaSeconds )
 
 	//	if( DoesStateRunPhysics( m_state ) )
 	{
-		RunPhysics( deltaSeconds );
+		RunPhysics( deltaSeconds, scenario );
 	}
 }
 
 
 //-----------------------------------------------------------------------------------------------
-void Actor::UpdateAsPlayer( double deltaSeconds )
+void Actor::UpdateAsPlayer( double deltaSeconds, Scenario& scenario )
 {
 	if( !m_isPlayer )
 	{
@@ -166,7 +166,7 @@ void Actor::UpdateAsPlayer( double deltaSeconds )
 		}
 	}
 
-	RunPhysics( deltaSeconds );
+	RunPhysics( deltaSeconds, scenario );
 }
 
 
@@ -185,13 +185,25 @@ bool Actor::DoesStateRunPhysics( ActorState state )
 
 
 //-----------------------------------------------------------------------------------------------
-void Actor::RunPhysics( double deltaSeconds )
+void Actor::RunPhysics( double deltaSeconds, Scenario& scenario )
 {
 	// Update the actor's kinematics
 	Vector2 velocity;
 	velocity.SetLengthAndYawDegrees( m_movementSpeed, m_movementHeadingDegrees );
 	Vector2 movement = velocity * (float) deltaSeconds;
-	m_position += movement;
+	Vector2 proposedPosition = m_position + movement;
+	m_position = proposedPosition;
+
+	unsigned int areaIndex;
+	for( areaIndex = 0; areaIndex < scenario.m_areas.size(); ++ areaIndex )
+	{
+		Area& area = *scenario.m_areas[ areaIndex ];
+		if( (m_isPlayer && area.m_impassableToPlayer) || ((!m_isPlayer) && area.m_impassableToNPC) )
+		{
+			scenario.ForceActorOutsideOfArea( *this, area );
+		}
+	}
+
 }
 
 
