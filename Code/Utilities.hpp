@@ -526,7 +526,7 @@ inline float ClampFloat( const float valueToBeClamped, const float minimum, cons
 inline float RangeMapFloat( const float incomingRangeStart, const float incomingRangeEnd, const float incomingValue, const float outgoingRangeStart, const float outgoingRangeEnd )
 {
 	if( incomingRangeStart == incomingRangeEnd )
-		return outgoingRangeStart;
+		return outgoingRangeEnd;
 
 	const float rangeFraction = (incomingValue - incomingRangeStart) / (incomingRangeEnd - incomingRangeStart);
 	return outgoingRangeStart + rangeFraction * (outgoingRangeEnd - outgoingRangeStart);
