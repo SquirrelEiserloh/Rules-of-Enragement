@@ -25,7 +25,7 @@ void ScenarioStartFunction_Responsibility( Scenario& scenario )
 	
 	//1024x576
 	Actor *player=new Actor();
-	player->m_position = Vector2(200, 200);
+	player->m_position = Vector2(352+144, 320+128);
 	player->m_isPlayer = true;
 	player->m_baseColor = Rgba::BLUE;
 	scenario.m_actors.push_back( player );
@@ -33,7 +33,7 @@ void ScenarioStartFunction_Responsibility( Scenario& scenario )
 	RelationshipToOtherActor followPlayer;
 	followPlayer.m_attractionRepulsionAtOuterDistance = Vector2(0.75f, 0.75f);
 	followPlayer.m_attractionRepulsionAtInnerDistance = Vector2(-0.25f, -0.25f);
-	followPlayer.m_outerDistance = 256;
+	followPlayer.m_outerDistance = 128;
 	followPlayer.m_innerDistance = 16;
 	followPlayer.m_otherActor = player;
 
@@ -59,10 +59,15 @@ void ScenarioStartFunction_Responsibility( Scenario& scenario )
 		}
 	}
 
-	AR(ar1, 0, 0, 1024, 576);
+	AR(ar1, 352, 320, 288, 256);
+	AR(ar2, 96, 256, 288, 256);
+	AR(ar3, 224, 32, 288, 256);
+	AR(ar4, 352, 320, 288, 256);
+	AR(ar5, 512, 128, 288, 256);
+	AR(ar6, 800, 32, 288, 256);
 
 	Area *pGoal=new Area();
-	pGoal->m_bounds.SetFromMinXYMaxXY( 928, 32, 1024, 32+96 );
+	pGoal->m_bounds.SetFromMinXYMaxXY( 928, 32, 1500, 32+256 );
 	pGoal->m_color = Rgba::WHITE;
 	pGoal->m_alpha = 1.0f;
 	scenario.m_areas.push_back( pGoal );
