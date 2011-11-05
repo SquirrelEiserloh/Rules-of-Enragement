@@ -1,15 +1,15 @@
 //-----------------------------------------------------------------------------------------------
-// Scenario_Popularity.hpp
+// Scenario_Responsibility.hpp
 //-----------------------------------------------------------------------------------------------
-#ifndef __include_Scenario_Popularity__
-#define __include_Scenario_Popularity__
+#ifndef __include_Scenario_Responsibility__
+#define __include_Scenario_Responsibility__
 
 #include "TheGame.hpp"
 
 
-void ScenarioStartFunction_Popularity( Scenario& scenario );
-void ScenarioUpdateFunction_Popularity( Scenario& scenario, double deltaSeconds );
+void ScenarioStartFunction_Responsibility( Scenario& scenario );
+void ScenarioUpdateFunction_Responsibility( Scenario& scenario, double deltaSeconds );
 
 
 
-#endif // __include_Scenario_Popularity__
+#endif // __include_Scenario_Responsibility__

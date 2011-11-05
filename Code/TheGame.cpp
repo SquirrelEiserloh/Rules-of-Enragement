@@ -9,6 +9,7 @@
 #include "Scenario_SelfSacrifice.hpp"
 #include "Scenario_Popularity.hpp"
 #include "Scenario_Schadenfreude.hpp"
+#include "Scenario_Responsibility.hpp"
 
 
 //-----------------------------------------------------------------------------------------------
@@ -46,7 +47,7 @@ void TheGame::Startup( const std::string& appCommandLine )
 	}
 
 	CreateScenarios();
-	StartScenarioByName( "Popularity" );
+	StartScenarioByName( "Responsibility" );
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -56,6 +57,7 @@ void TheGame::CreateScenarios()
 	CreateScenario( "SelfSacrifice", ScenarioStartFunction_SelfSacrifice, ScenarioUpdateFunction_SelfSacrifice );
 	CreateScenario( "Popularity", ScenarioStartFunction_Popularity, ScenarioUpdateFunction_Popularity );
 	CreateScenario( "Schadenfreude", ScenarioStartFunction_Schadenfreude, ScenarioUpdateFunction_Schadenfreude );
+	CreateScenario( "Responsibility", ScenarioStartFunction_Responsibility, ScenarioUpdateFunction_Responsibility );
 }
 
 //-----------------------------------------------------------------------------------------------

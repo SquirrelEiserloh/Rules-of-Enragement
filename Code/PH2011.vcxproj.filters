@@ -67,6 +67,9 @@
     <ClCompile Include="Scenario_Schadenfreude.cpp">
       <Filter>Game\Scenarios</Filter>
     </ClCompile>
+    <ClCompile Include="Scenario_Responsibility.cpp">
+      <Filter>Game\Scenarios</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB2.hpp">
@@ -139,6 +142,9 @@
       <Filter>Game\Scenarios</Filter>
     </ClInclude>
     <ClInclude Include="Scenario_Schadenfreude.hpp">
+      <Filter>Game\Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenario_Responsibility.hpp">
       <Filter>Game\Scenarios</Filter>
     </ClInclude>
   </ItemGroup>
