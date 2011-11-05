@@ -55,6 +55,9 @@
     <ClCompile Include="Area.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Scenario_SelfDoubt.cpp">
+      <Filter>Game\Scenarios</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB2.hpp">
@@ -117,6 +120,9 @@
     <ClInclude Include="Scenario_Generic.hpp">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Scenario_SelfDoubt.hpp">
+      <Filter>Game\Scenarios</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -124,6 +130,9 @@
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{812d4667-d6d8-4d9c-ba39-17d6e0f5c85c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenarios">
+      <UniqueIdentifier>{e15beb99-768f-4b60-948a-9854cc2d1c98}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

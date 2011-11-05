@@ -5,6 +5,7 @@
 #include "Main_Win32.hpp"
 #include "Graphics.hpp"
 #include "Scenario_Generic.hpp"
+#include "Scenario_SelfDoubt.hpp"
 
 
 //-----------------------------------------------------------------------------------------------
@@ -42,9 +43,17 @@ void TheGame::Startup( const std::string& appCommandLine )
 	}
 
 	CreateScenarios();
-	StartScenarioByName( "Apple" );
+	StartScenarioByName( "SelfDoubt" );
 }
 
+//-----------------------------------------------------------------------------------------------
+void TheGame::CreateScenarios()
+{
+	CreateScenario( "Apple", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
+	CreateScenario( "Banana", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
+	CreateScenario( "Cherry", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
+	CreateScenario( "SelfDoubt", ScenarioStartFunction_SelfDoubt, ScenarioUpdateFunction_SelfDoubt );
+}
 
 //-----------------------------------------------------------------------------------------------
 void TheGame::Shutdown()
@@ -175,15 +184,6 @@ bool TheGame::ProcessKeyUpEvent( unsigned char keyCode )
 bool TheGame::IsKeyDown( unsigned char keyCode )
 {
 	return m_keyDownStates[ keyCode ];
-}
-
-
-//-----------------------------------------------------------------------------------------------
-void TheGame::CreateScenarios()
-{
-	CreateScenario( "Apple", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
-	CreateScenario( "Banana", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
-	CreateScenario( "Cherry", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
 }
 
 
