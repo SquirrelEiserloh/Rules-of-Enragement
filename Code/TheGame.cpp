@@ -243,7 +243,83 @@ void TheGame::LoadScenarioDataFiles()
 }
 
 
-
-
+//-----------------------------------------------------------------------------------------------
+Vector2 FindClosestPointInBoundsToTarget( const AABB2& bounds, const Vector2& target, bool allowResultsWithinBounds )
+{
+	if( target.x < bounds.mins.x )
+	{
+		if( target.y < bounds.mins.y )
+		{
+			return bounds.mins;
+		}
+		else if( target.y > bounds.maxs.y )
+		{
+			return Vector2( bounds.mins.x, bounds.maxs.y );
+		}
+		else
+		{
+			return Vector2( bounds.mins.x, target.y );
+		}
+	}
+	else if( target.x > bounds.maxs.x )
+	{
+		if( target.y < bounds.mins.y )
+		{
+			return Vector2( bounds.maxs.x, bounds.mins.y );
+		}
+		else if( target.y > bounds.maxs.y )
+		{
+			return bounds.maxs;
+		}
+		else
+		{
+			return Vector2( bounds.maxs.x, target.y );
+		}
+	}
+	else
+	{
+		if( target.y < bounds.mins.y )
+		{
+			return Vector2( target.x, bounds.mins.y );
+		}
+		else if( target.y > bounds.maxs.y )
+		{
+			return Vector2( target.x, bounds.maxs.y );
+		}
+		else
+		{
+			if( allowResultsWithinBounds )
+			{
+				return target;
+			}
+			else
+			{
+				float distanceFromLeft = target.x - bounds.mins.x;
+				float distanceFromRight = bounds.maxs.x - target.x;
+				float distanceFromTop = target.y - bounds.mins.y;
+				float distanceFromBottom = bounds.maxs.y - target.y;
+				float distanceFromLeftOrRight = MinFloat( distanceFromLeft, distanceFromRight );
+				float distanceFromTopOrBottom = MinFloat( distanceFromTop, distanceFromBottom );
+				float distanceFromAnyEdge = MinFloat( distanceFromLeftOrRight, distanceFromTopOrBottom );
+				if( distanceFromAnyEdge == distanceFromLeft )
+				{
+					return Vector2( bounds.mins.x, target.y );
+				}
+				else if( distanceFromAnyEdge == distanceFromRight )
+				{
+					return Vector2( bounds.maxs.x, target.y );
+				}
+				else if( distanceFromAnyEdge == distanceFromTop )
+				{
+					return Vector2( target.x, bounds.mins.y );
+				}
+				else
+				{
+					return Vector2( target.x, bounds.maxs.y );
+				}
+			}
+		}
+	}
+}
 
 
