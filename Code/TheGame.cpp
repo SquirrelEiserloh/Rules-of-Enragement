@@ -10,6 +10,7 @@
 #include "Scenario_Popularity.hpp"
 #include "Scenario_Schadenfreude.hpp"
 #include "Scenario_Responsibility.hpp"
+#include "Scenario_Claustrophobia.hpp"
 
 
 //-----------------------------------------------------------------------------------------------
@@ -47,7 +48,7 @@ void TheGame::Startup( const std::string& appCommandLine )
 	}
 
 	CreateScenarios();
-	StartScenarioByName( "Responsibility" );
+	StartScenarioByName( "Claustrophobia" );
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -58,6 +59,7 @@ void TheGame::CreateScenarios()
 	CreateScenario( "Popularity", ScenarioStartFunction_Popularity, ScenarioUpdateFunction_Popularity );
 	CreateScenario( "Schadenfreude", ScenarioStartFunction_Schadenfreude, ScenarioUpdateFunction_Schadenfreude );
 	CreateScenario( "Responsibility", ScenarioStartFunction_Responsibility, ScenarioUpdateFunction_Responsibility );
+	CreateScenario( "Claustrophobia", ScenarioStartFunction_Claustrophobia, ScenarioUpdateFunction_Claustrophobia );
 }
 
 //-----------------------------------------------------------------------------------------------
