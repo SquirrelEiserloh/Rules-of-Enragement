@@ -11,6 +11,7 @@ const float g_playerAcceleration = 200000.f;
 const float g_playerMaxMoveSpeedUnitsPerSecond = 100.f;
 const float g_secondsToDragToStop = 0.1f;
 const float g_fullMeanderMaxDegreesPerSecond = 360.f;
+const double g_numberOfSecondsToFall = 3.0;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,7 +55,7 @@ Actor::Actor()
 	, m_radiusScaleFromRelationships( 1.f )
 	, m_meanderFactor( 0.2f )
 	, m_confusionFactor( 0.0f )
-	, m_state( ACTOR_STATE_IDLE )
+	, m_state( ACTOR_STATE_ACTIVE )
 	, m_timeEnteredState( 0.0 )
 
 	, m_responseIfTouchedByNPC( ACTOR_RESPONSE_NONE )
@@ -103,9 +104,30 @@ void Actor::Update( double deltaSeconds, Scenario& scenario )
 	m_previousPosition = m_position;
 	RunEmotions( deltaSeconds );
 
-	//	if( DoesStateRunPhysics( m_state ) )
+	if( DoesStateRunPhysics( m_state ) )
 	{
 		RunPhysics( deltaSeconds, scenario );
+	}
+	else
+	{
+		if( m_state == ACTOR_STATE_FALLING )
+		{
+			ContinueFalling( deltaSeconds, scenario );
+		}
+	}
+}
+
+
+//-----------------------------------------------------------------------------------------------
+void Actor::ContinueFalling( double deltaSeconds, Scenario& scenario )
+{
+	double secondsInState = Clock::GetAbsoluteTimeSeconds() - m_timeEnteredState;
+	float fractionFallen = (float)( secondsInState / g_numberOfSecondsToFall );
+	fractionFallen = ClampFloat( fractionFallen, 0.f, 1.f );
+	m_radiusScaleFromRelationships *= (1.f - fractionFallen);
+	if( fractionFallen >= 1.f )
+	{
+		ChangeState( ACTOR_STATE_DEAD );
 	}
 }
 
@@ -120,53 +142,66 @@ void Actor::UpdateAsPlayer( double deltaSeconds, Scenario& scenario )
 	}
 
 	m_previousPosition = m_position;
-	Vector2 moveIntention = Vector2::ZERO;
-	bool isAccelerating = false;
-	if( theGame->IsKeyDown( VK_UP ) )
+	if( m_state == ACTOR_STATE_ACTIVE )
 	{
-		moveIntention += Vector2( 0.f, -g_playerAcceleration );
-		isAccelerating = true;
-	}
-	if( theGame->IsKeyDown( VK_DOWN ) )
-	{
-		moveIntention += Vector2( 0.f, +g_playerAcceleration );
-		isAccelerating = true;
-	}
-	if( theGame->IsKeyDown( VK_LEFT ) )
-	{
-		moveIntention += Vector2( -g_playerAcceleration, 0.f );
-		isAccelerating = true;
-	}
-	if( theGame->IsKeyDown( VK_RIGHT ) )
-	{
-		moveIntention += Vector2( +g_playerAcceleration, 0.f );
-		isAccelerating = true;
-	}
+		Vector2 moveIntention = Vector2::ZERO;
+		bool isAccelerating = false;
+		if( theGame->IsKeyDown( VK_UP ) )
+		{
+			moveIntention += Vector2( 0.f, -g_playerAcceleration );
+			isAccelerating = true;
+		}
+		if( theGame->IsKeyDown( VK_DOWN ) )
+		{
+			moveIntention += Vector2( 0.f, +g_playerAcceleration );
+			isAccelerating = true;
+		}
+		if( theGame->IsKeyDown( VK_LEFT ) )
+		{
+			moveIntention += Vector2( -g_playerAcceleration, 0.f );
+			isAccelerating = true;
+		}
+		if( theGame->IsKeyDown( VK_RIGHT ) )
+		{
+			moveIntention += Vector2( +g_playerAcceleration, 0.f );
+			isAccelerating = true;
+		}
 
-	moveIntention.SetLength( deltaSeconds * g_playerAcceleration );
-	Vector2 currentVelocity;
-	currentVelocity.SetLengthAndYawDegrees( m_movementSpeed, m_movementHeadingDegrees );
-	currentVelocity += (deltaSeconds * moveIntention);
-	m_movementSpeed = currentVelocity.CalcLength();
-	m_movementHeadingDegrees = currentVelocity.CalcYawDegrees();
-	if( m_movementSpeed > g_playerMaxMoveSpeedUnitsPerSecond )
-	{
-		currentVelocity.SetLength( g_playerMaxMoveSpeedUnitsPerSecond );
+		moveIntention.SetLength( deltaSeconds * g_playerAcceleration );
+		Vector2 currentVelocity;
+		currentVelocity.SetLengthAndYawDegrees( m_movementSpeed, m_movementHeadingDegrees );
+		currentVelocity += (deltaSeconds * moveIntention);
 		m_movementSpeed = currentVelocity.CalcLength();
 		m_movementHeadingDegrees = currentVelocity.CalcYawDegrees();
-	}
-
-	if( moveIntention == Vector2::ZERO )
-	{
-		float fractionOfDragToStopTime = (float) deltaSeconds / g_secondsToDragToStop;
-		m_movementSpeed -= (fractionOfDragToStopTime * g_playerMaxMoveSpeedUnitsPerSecond);
-		if( m_movementSpeed < 0.f )
+		if( m_movementSpeed > g_playerMaxMoveSpeedUnitsPerSecond )
 		{
-			m_movementSpeed = 0.f;
+			currentVelocity.SetLength( g_playerMaxMoveSpeedUnitsPerSecond );
+			m_movementSpeed = currentVelocity.CalcLength();
+			m_movementHeadingDegrees = currentVelocity.CalcYawDegrees();
+		}
+
+		if( moveIntention == Vector2::ZERO )
+		{
+			float fractionOfDragToStopTime = (float) deltaSeconds / g_secondsToDragToStop;
+			m_movementSpeed -= (fractionOfDragToStopTime * g_playerMaxMoveSpeedUnitsPerSecond);
+			if( m_movementSpeed < 0.f )
+			{
+				m_movementSpeed = 0.f;
+			}
 		}
 	}
 
-	RunPhysics( deltaSeconds, scenario );
+	if( DoesStateRunPhysics( m_state ) )
+	{
+		RunPhysics( deltaSeconds, scenario );
+	}
+	else
+	{
+		if( m_state == ACTOR_STATE_FALLING )
+		{
+			ContinueFalling( deltaSeconds, scenario );
+		}
+	}
 }
 
 
@@ -175,9 +210,10 @@ bool Actor::DoesStateRunPhysics( ActorState state )
 {
 	switch( state )
 	{
-	case ACTOR_STATE_IDLE:
+	case ACTOR_STATE_ACTIVE:
 		return true;
 
+	case ACTOR_STATE_FALLING:
 	default:
 		return false;
 	}
@@ -194,6 +230,7 @@ void Actor::RunPhysics( double deltaSeconds, Scenario& scenario )
 	Vector2 proposedPosition = m_position + movement;
 	m_position = proposedPosition;
 
+	bool isInsideAtLeastOnePassableArea = false;
 	unsigned int areaIndex;
 	for( areaIndex = 0; areaIndex < scenario.m_areas.size(); ++ areaIndex )
 	{
@@ -202,14 +239,26 @@ void Actor::RunPhysics( double deltaSeconds, Scenario& scenario )
 		{
 			scenario.ForceActorOutsideOfArea( *this, area );
 		}
+
+		if( scenario.IsActorAtAllInsideArea( *this, area ) )
+		{
+			isInsideAtLeastOnePassableArea = true;
+		}
 	}
 
+	if( !isInsideAtLeastOnePassableArea )
+	{
+		StartFalling();
+	}
 }
 
 
 //-----------------------------------------------------------------------------------------------
 void Actor::Draw( bool isShadowPass ) const
 {
+	if( m_state == ACTOR_STATE_DEAD )
+		return;
+
 	if( isShadowPass )
 	{
 		const Vector2 actorShadowOffset( 3.f, 3.f );
@@ -299,4 +348,13 @@ Rgba Actor::CalcColor() const
 {
 	return m_baseColor;
 }
+
+
+//-----------------------------------------------------------------------------------------------
+void Actor::StartFalling()
+{
+	ChangeState( ACTOR_STATE_FALLING );
+	m_baseColor = Rgba::WHITE;
+}
+
 

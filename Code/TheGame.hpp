@@ -102,7 +102,9 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////////
 enum ActorState
 {
-	ACTOR_STATE_IDLE,
+	ACTOR_STATE_ACTIVE,
+	ACTOR_STATE_FALLING,
+	ACTOR_STATE_DEAD,
 	NUM_ACTOR_STATES
 };
 
@@ -168,10 +170,12 @@ public:
 	ActorState ChangeState( ActorState newState );
 	void Update( double deltaSeconds, Scenario& scenario );
 	void UpdateAsPlayer( double deltaSeconds, Scenario& scenario );
+	void ContinueFalling( double deltaSeconds, Scenario& scenario );
 	bool DoesStateRunPhysics( ActorState state );
 	void RunPhysics( double deltaSeconds, Scenario& scenario );
 	void RunEmotions( double deltaSeconds );
 	void RunRelationship( RelationshipToOtherActor& relationship, Actor& otherActor );
+	void StartFalling();
 };
 
 
@@ -201,6 +205,7 @@ public:
 	Scenario();
 	void Start();
 	void Update( double deltaSeconds );
+	bool IsActorAtAllInsideArea( Actor& actor, Area& area );
 	void ForceActorOutsideOfArea( Actor& actor, Area& area );
 	void Render();
 	void RenderArea( Area& area, bool isShadowPass );
