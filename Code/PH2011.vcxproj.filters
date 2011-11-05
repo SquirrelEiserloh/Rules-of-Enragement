@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="AABB2.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Clock.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="IntVector2.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Main_Win32.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="NamedProperties.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="ParsingSupport.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceStream.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Rgba.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="TypeUtilities.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="xmlParser.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TheGame.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenario.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenario_Generic.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Area.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AABB2.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Clock.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="HashedCaseInsensitiveString.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="IntVector2.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Main_Win32.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="MathBase.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="NamedProperties.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ParsingSupport.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ProfilingSection.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceStream.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Rgba.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeUtilities.hpp">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="xmlParser.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TheGame.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Shared.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenario_Generic.hpp">
+      <Filter>Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{f1b2eafc-73a7-4525-a6ef-c830c2e895ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{812d4667-d6d8-4d9c-ba39-17d6e0f5c85c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
