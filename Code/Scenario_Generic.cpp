@@ -20,9 +20,13 @@ void ScenarioStartFunction_Generic( Scenario& scenario )
 	scenario.m_actors.push_back( player );
 
 	RelationshipToOtherActor mimicPlayerSomewhat;
-//	mimicPlayerSomewhat.m_otherActor = 
+	mimicPlayerSomewhat.m_otherActor = player;
+	mimicPlayerSomewhat.m_mimicMotionAtOuterDistance = Vector2( 0.5f, 0.5f );
+
 	Actor* testActor2 = new Actor();
+	testActor2->m_baseColor	= Rgba::GOLD;
 	testActor2->m_position = Vector2( 180.f, 380.f );
+	testActor2->m_relationships.push_back( mimicPlayerSomewhat );
 	scenario.m_actors.push_back( testActor2 );
 
 	Area* testArea = new Area;

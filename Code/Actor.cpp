@@ -260,7 +260,7 @@ void Actor::RunRelationship( RelationshipToOtherActor& relationship, Actor& othe
 	m_alphaScaleFromRelationships *= alphaScale;
 	m_radiusScaleFromRelationships *= radiusScale;
 
-	Vector2 otherActorDisplacement = otherActor.m_previousPosition - otherActor.m_position;
+	Vector2 otherActorDisplacement = otherActor.m_position - otherActor.m_previousPosition;
 	Vector2 mimicDisplacement = otherActorDisplacement;
 	mimicDisplacement.x *= mimic2d.x;
 	mimicDisplacement.y *= mimic2d.y;
