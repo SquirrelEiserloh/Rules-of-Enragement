@@ -133,6 +133,7 @@ class Actor
 {
 public:
 	Vector2 m_position;
+	Vector2 m_previousPosition;
 	float m_movementSpeed;
 	float m_movementHeadingDegrees;
 	float m_viewHeadingDegrees;
@@ -143,6 +144,8 @@ public:
 	float m_alphaScaleFromRelationships;
 	float m_baseRadius;
 	float m_radiusScaleFromRelationships;
+	float m_meanderFactor;
+	float m_confusionFactor;
 	ActorState m_state;
 	double m_timeEnteredState;
 
@@ -184,8 +187,8 @@ class Scenario
 {
 public:
 	std::string m_name;	
-	std::vector< Area > m_areas;
-	std::vector< Actor > m_actors;
+	std::vector< Area* > m_areas;
+	std::vector< Actor* > m_actors;
 	ScenarioState m_state;
 	double m_timeEnteredState;
 	ScenarioStartFunctionPointer m_startFunction;

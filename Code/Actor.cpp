@@ -7,9 +7,10 @@
 
 //-----------------------------------------------------------------------------------------------
 // Globals
-const float g_playerAcceleration = 50000.f;
+const float g_playerAcceleration = 200000.f;
 const float g_playerMaxMoveSpeedUnitsPerSecond = 100.f;
 const float g_secondsToDragToStop = 0.1f;
+const float g_fullMeanderMaxDegreesPerSecond = 360.f;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -51,6 +52,8 @@ Actor::Actor()
 	, m_alphaScaleFromRelationships( 1.f )
 	, m_baseRadius( DEFAULT_NPC_RADIUS )
 	, m_radiusScaleFromRelationships( 1.f )
+	, m_meanderFactor( 0.2f )
+	, m_confusionFactor( 0.0f )
 	, m_state( ACTOR_STATE_IDLE )
 	, m_timeEnteredState( 0.0 )
 
@@ -97,6 +100,7 @@ void Actor::Update( double deltaSeconds )
 		return;
 	}
 
+	m_previousPosition = m_position;
 	RunEmotions( deltaSeconds );
 
 	//	if( DoesStateRunPhysics( m_state ) )
@@ -115,6 +119,7 @@ void Actor::UpdateAsPlayer( double deltaSeconds )
 		return;
 	}
 
+	m_previousPosition = m_position;
 	Vector2 moveIntention = Vector2::ZERO;
 	bool isAccelerating = false;
 	if( theGame->IsKeyDown( VK_UP ) )
@@ -186,7 +191,6 @@ void Actor::RunPhysics( double deltaSeconds )
 	Vector2 velocity;
 	velocity.SetLengthAndYawDegrees( m_movementSpeed, m_movementHeadingDegrees );
 	Vector2 movement = velocity * (float) deltaSeconds;
-	Vector2 previousPosition = m_position;
 	m_position += movement;
 }
 
@@ -222,6 +226,16 @@ void Actor::RunEmotions( double deltaSeconds )
 			RunRelationship( relationship, *relationship.m_otherActor );
 		}
 	}
+
+	// Meandering
+	if( m_meanderFactor > 0.f )
+	{
+	}
+
+	// Confusion
+	if( m_confusionFactor > 0.f )
+	{
+	}
 }
 
 
@@ -245,6 +259,12 @@ void Actor::RunRelationship( RelationshipToOtherActor& relationship, Actor& othe
 
 	m_alphaScaleFromRelationships *= alphaScale;
 	m_radiusScaleFromRelationships *= radiusScale;
+
+	Vector2 otherActorDisplacement = otherActor.m_previousPosition - otherActor.m_position;
+	Vector2 mimicDisplacement = otherActorDisplacement;
+	mimicDisplacement.x *= mimic2d.x;
+	mimicDisplacement.y *= mimic2d.y;
+	m_position += mimicDisplacement;
 }
 
 

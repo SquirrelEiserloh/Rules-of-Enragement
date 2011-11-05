@@ -34,7 +34,7 @@ void Scenario::Update( double deltaSeconds )
 	// Update players
 	for( unsigned int actorIndex = 0; actorIndex < m_actors.size(); ++ actorIndex )
 	{
-		Actor& actor = m_actors[ actorIndex ];
+		Actor& actor = *m_actors[ actorIndex ];
 		if( actor.m_isPlayer )
 		{
 			actor.UpdateAsPlayer( deltaSeconds );
@@ -44,7 +44,7 @@ void Scenario::Update( double deltaSeconds )
 	// Update all NPCs
 	for( unsigned int actorIndex = 0; actorIndex < m_actors.size(); ++ actorIndex )
 	{
-		Actor& actor = m_actors[ actorIndex ];
+		Actor& actor = *m_actors[ actorIndex ];
 		if( !actor.m_isPlayer )
 		{
 			actor.Update( deltaSeconds );
@@ -61,12 +61,12 @@ void Scenario::Render()
 	unsigned int areaIndex;
 	for( areaIndex = 0; areaIndex < m_areas.size(); ++ areaIndex )
 	{
-		Area& area = m_areas[ areaIndex ];
+		Area& area = *m_areas[ areaIndex ];
 		RenderArea( area, true );
 	}
 	for( areaIndex = 0; areaIndex < m_areas.size(); ++ areaIndex )
 	{
-		Area& area = m_areas[ areaIndex ];
+		Area& area = *m_areas[ areaIndex ];
 		RenderArea( area, false );
 	}
 
@@ -74,14 +74,14 @@ void Scenario::Render()
 	unsigned int actorIndex;
 	for( actorIndex = 0; actorIndex < m_actors.size(); ++ actorIndex )
 	{
-		Actor& actor = m_actors[ actorIndex ];
+		Actor& actor = *m_actors[ actorIndex ];
 		RenderActor( actor, true );
 	}
 
 	// Render all NPCs
 	for( actorIndex = 0; actorIndex < m_actors.size(); ++ actorIndex )
 	{
-		Actor& actor = m_actors[ actorIndex ];
+		Actor& actor = *m_actors[ actorIndex ];
 		if( !actor.m_isPlayer )
 		{
 			RenderActor( actor, false );
@@ -91,7 +91,7 @@ void Scenario::Render()
 	// Render players (separated only so that players are drawn on top of NPCs
 	for( unsigned int actorIndex = 0; actorIndex < m_actors.size(); ++ actorIndex )
 	{
-		Actor& actor = m_actors[ actorIndex ];
+		Actor& actor = *m_actors[ actorIndex ];
 		if( actor.m_isPlayer )
 		{
 			RenderActor( actor, false );
