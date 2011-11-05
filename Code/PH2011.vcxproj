@@ -25,6 +25,7 @@
     <ClCompile Include="Scenario.cpp" />
     <ClCompile Include="Scenario_Generic.cpp" />
     <ClCompile Include="Scenario_SelfDoubt.cpp" />
+    <ClCompile Include="Scenario_SelfSacrifice.cpp" />
     <ClCompile Include="TheGame.cpp" />
     <ClCompile Include="TypeUtilities.cpp" />
     <ClCompile Include="Utilities.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="Rgba.hpp" />
     <ClInclude Include="Scenario_Generic.hpp" />
     <ClInclude Include="Scenario_SelfDoubt.hpp" />
+    <ClInclude Include="Scenario_SelfSacrifice.hpp" />
     <ClInclude Include="Shared.hpp" />
     <ClInclude Include="TheGame.hpp" />
     <ClInclude Include="TypeUtilities.hpp" />

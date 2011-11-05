@@ -6,6 +6,7 @@
 #include "Graphics.hpp"
 #include "Scenario_Generic.hpp"
 #include "Scenario_SelfDoubt.hpp"
+#include "Scenario_SelfSacrifice.hpp"
 
 
 //-----------------------------------------------------------------------------------------------
@@ -43,7 +44,7 @@ void TheGame::Startup( const std::string& appCommandLine )
 	}
 
 	CreateScenarios();
-	StartScenarioByName( "SelfDoubt" );
+	StartScenarioByName( "SelfSacrifice" );
 }
 
 //-----------------------------------------------------------------------------------------------
@@ -53,6 +54,7 @@ void TheGame::CreateScenarios()
 	CreateScenario( "Banana", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
 	CreateScenario( "Cherry", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
 	CreateScenario( "SelfDoubt", ScenarioStartFunction_SelfDoubt, ScenarioUpdateFunction_SelfDoubt );
+	CreateScenario( "SelfSacrifice", ScenarioStartFunction_SelfSacrifice, ScenarioUpdateFunction_SelfSacrifice );
 }
 
 //-----------------------------------------------------------------------------------------------

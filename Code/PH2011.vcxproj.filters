@@ -58,6 +58,9 @@
     <ClCompile Include="Scenario_SelfDoubt.cpp">
       <Filter>Game\Scenarios</Filter>
     </ClCompile>
+    <ClCompile Include="Scenario_SelfSacrifice.cpp">
+      <Filter>Game\Scenarios</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABB2.hpp">
@@ -121,6 +124,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Scenario_SelfDoubt.hpp">
+      <Filter>Game\Scenarios</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenario_SelfSacrifice.hpp">
       <Filter>Game\Scenarios</Filter>
     </ClInclude>
   </ItemGroup>

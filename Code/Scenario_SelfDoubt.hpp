@@ -12,4 +12,4 @@ void ScenarioUpdateFunction_SelfDoubt( Scenario& scenario, double deltaSeconds )
 
 
 
-#endif // __include_Scenario_Generic__
+#endif // __include_Scenario_SelfDoubt__
