@@ -8,6 +8,7 @@
 #include "Scenario_SelfDoubt.hpp"
 #include "Scenario_SelfSacrifice.hpp"
 #include "Scenario_Popularity.hpp"
+#include "Scenario_Schadenfreude.hpp"
 
 
 //-----------------------------------------------------------------------------------------------
@@ -51,12 +52,10 @@ void TheGame::Startup( const std::string& appCommandLine )
 //-----------------------------------------------------------------------------------------------
 void TheGame::CreateScenarios()
 {
-	CreateScenario( "Apple", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
-	CreateScenario( "Banana", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
-	CreateScenario( "Cherry", ScenarioStartFunction_Generic, ScenarioUpdateFunction_Generic );
 	CreateScenario( "SelfDoubt", ScenarioStartFunction_SelfDoubt, ScenarioUpdateFunction_SelfDoubt );
 	CreateScenario( "SelfSacrifice", ScenarioStartFunction_SelfSacrifice, ScenarioUpdateFunction_SelfSacrifice );
 	CreateScenario( "Popularity", ScenarioStartFunction_Popularity, ScenarioUpdateFunction_Popularity );
+	CreateScenario( "Schadenfreude", ScenarioStartFunction_Schadenfreude, ScenarioUpdateFunction_Schadenfreude );
 }
 
 //-----------------------------------------------------------------------------------------------
