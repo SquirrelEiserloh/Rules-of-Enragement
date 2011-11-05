@@ -54,6 +54,23 @@ void Scenario::Update( double deltaSeconds )
 
 
 //-----------------------------------------------------------------------------------------------
+bool Scenario::IsActorAtAllInsideArea( Actor& actor, Area& area )
+{
+	Vector2 closestPointInAreaToActorCenter = FindClosestPointInBoundsToTarget( area.m_bounds, actor.m_position, true );
+	Vector2 displacementToClosestPoint = closestPointInAreaToActorCenter - actor.m_position;
+	float distanceToClosestPoint = displacementToClosestPoint.CalcLength();
+	if( distanceToClosestPoint < actor.CalcRadius() )
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+//-----------------------------------------------------------------------------------------------
 void Scenario::ForceActorOutsideOfArea( Actor& actor, Area& area )
 {
 	Vector2 closestPointInAreaToActorCenter = FindClosestPointInBoundsToTarget( area.m_bounds, actor.m_position, false );
